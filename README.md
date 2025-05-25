@@ -1,97 +1,83 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# CuidaAe
 
-# Getting Started
+CuidaAe é um aplicativo mobile que simplifica o agendamento e o gerenciamento de atendimentos em clínicas e consultórios. Com foco em experiência do usuário, acessibilidade e agilidade, o CuidaAe foi criado para conectar profissionais da saúde a seus pacientes de forma fácil, moderna e eficiente.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## ✨ Propósito
 
-## Step 1: Start Metro
+O CuidaAe tem como missão tornar o atendimento em saúde mais acessível e organizado, tanto para pacientes quanto para profissionais da área. Ele centraliza agendamentos, lembretes, histórico de consultas e comunicação, promovendo bem-estar, cuidado e conveniência.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## 📱 Funcionalidades (MVP)
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- Autenticação de usuários (paciente e profissional)
+- Cadastro de perfil
+- Agendamento de consultas
+- Visualização da agenda
+- Lembretes automáticos
+- Cancelamento e reagendamento
+- Interface intuitiva e responsiva
 
-```sh
-# Using npm
-npm start
+## 🛠️ Tecnologias Utilizadas
 
-# OR using Yarn
-yarn start
+- **React Native CLI**
+- **TypeScript**
+- **Restyle** (design system)
+- **Supabase** (backend as a service)
+- **React Navigation**
+- **AsyncStorage**
+
+## 📁 Estrutura do Projeto
+
+```bash
+cuidaae/
+├── android/
+├── ios/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── contexts/
+│   ├── hooks/
+│   ├── navigation/
+│   ├── screens/
+│   │   ├── Auth/
+│   │   ├── Home/
+│   │   └── Schedule/
+│   ├── services/
+│   ├── store/
+│   ├── styles/
+│   └── utils/
+├── .gitignore
+├── app.json
+├── tsconfig.json
+└── README.md
 ```
 
-## Step 2: Build and run your app
+## 🚀 Como Rodar o Projeto
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/cuidaae.git
+   cd cuidaae
+   ```
 
-### Android
+2. Instale as dependências:
+   ```bash
+   yarn install
+   ```
 
-```sh
-# Using npm
-npm run android
+3. Configure variáveis de ambiente:
+   Crie um arquivo `.env` e insira suas chaves do Supabase e outras credenciais necessárias.
 
-# OR using Yarn
-yarn android
-```
+4. Rode o app:
+   ```bash
+   npx react-native run-android
+   # ou
+   npx react-native run-ios
+   ```
 
-### iOS
+## 📄 Licença
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+Este projeto está licenciado sob a [MIT License](LICENSE).
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+---
 
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Desenvolvido com ❤️ por André Resende.
