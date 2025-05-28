@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image} from 'react-native';
+import {Image, Text} from 'react-native';
 import {Box} from '../../components/Box/Box';
 import {Button} from '../../components/Button/Button';
 import {FormSchemaLogin} from '../../utils/formSchemaValidators';
@@ -10,11 +10,14 @@ import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {AuthStackParamList} from '../../navigation/AuthNavigator';
+import {useAuthStore} from '../../store/useAuthStore';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'LoginScreen'>;
 
 export const LoginScreen = ({navigation}: Props) => {
-  const {control, formState, handleSubmit} = useForm<FormSchemaLogin>({
+  const {signIn, isLoading, error} = useAuthStore();
+
+  const {control, formState, handleSubmit, reset} = useForm<FormSchemaLogin>({
     resolver: zodResolver(FormSchemaLogin),
     defaultValues: {
       email: '',
@@ -23,8 +26,13 @@ export const LoginScreen = ({navigation}: Props) => {
     mode: 'onChange',
   });
 
-  const onSubmit = (data: FormSchemaLogin) => {
-    console.log(data);
+  const onSubmit = async (data: FormSchemaLogin) => {
+    console.log(data.email, data.password);
+    const response = await signIn(data.email, data.password);
+
+    console.log(response);
+
+    reset();
   };
 
   const navigateToForgotPasswordScreen = () => {
@@ -43,6 +51,7 @@ export const LoginScreen = ({navigation}: Props) => {
 
       <FormTextInput
         control={control}
+        placeholder="Digite seu e-mail"
         name="email"
         label="E-mail"
         errorMessage={formState.errors.email?.message}
@@ -53,12 +62,19 @@ export const LoginScreen = ({navigation}: Props) => {
 
       <FormTextInput
         control={control}
+        placeholder="Digite sua senha"
         name="password"
         label="Senha"
         errorMessage={formState.errors.password?.message}
         secureTextEntry
         autoComplete="password"
       />
+
+      {error && (
+        <Box marginBottom="spacing16">
+          <Text style={{color: 'red', textAlign: 'center'}}>{error}</Text>
+        </Box>
+      )}
 
       <Box marginBottom="spacing32">
         <Button
@@ -72,6 +88,7 @@ export const LoginScreen = ({navigation}: Props) => {
         title="Entrar"
         onPress={handleSubmit(onSubmit)}
         variant="primary"
+        loading={isLoading}
       />
     </Screen>
   );

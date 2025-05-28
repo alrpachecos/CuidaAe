@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  ActivityIndicator,
-} from 'react-native';
+import {Text, StyleSheet, ActivityIndicator, Pressable} from 'react-native';
 import {useTheme} from '@shopify/restyle';
 import {Theme} from '../../theme/theme';
 
@@ -57,10 +52,10 @@ export const Button = ({
   ];
 
   return (
-    <TouchableOpacity
+    <Pressable
       style={buttonStyles}
       onPress={onPress}
-      disabled={disabled || loading}>
+      disabled={loading || disabled}>
       {loading ? (
         <ActivityIndicator
           color={
@@ -72,7 +67,7 @@ export const Button = ({
       ) : (
         <Text style={textStyles}>{title}</Text>
       )}
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

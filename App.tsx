@@ -1,14 +1,14 @@
+import 'react-native-url-polyfill/auto';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {ThemeProvider} from '@shopify/restyle';
-import {AuthProvider} from './src/contexts/AuthContext';
 import {AppNavigator} from './src/navigation/AppNavigator';
 import {AuthNavigator} from './src/navigation/AuthNavigator';
-import {useAuth} from './src/hooks/useAuth';
 import {theme} from './src/theme/theme';
+import {useAuthStore} from './src/store/useAuthStore';
 
 const Navigation = () => {
-  const {user} = useAuth();
+  const {user} = useAuthStore();
   return user ? <AppNavigator /> : <AuthNavigator />;
 };
 
@@ -16,9 +16,7 @@ function App(): React.JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       <NavigationContainer>
-        <AuthProvider>
-          <Navigation />
-        </AuthProvider>
+        <Navigation />
       </NavigationContainer>
     </ThemeProvider>
   );
