@@ -1,12 +1,9 @@
 import React from 'react';
 import {Button} from '../../components/Button/Button';
 import {Text} from '../../components/Text/Text';
-import {Box, TouchableOpacityBox} from '../../components/Box/Box';
-import {useAuth} from '../../hooks/useAuth';
+import {Box} from '../../components/Box/Box';
 
 export const HomeScreen = () => {
-  const {signOut} = useAuth();
-
   return (
     <Box flex={1} backgroundColor="background" padding="spacing16">
       <Box marginBottom="spacing32">
@@ -40,7 +37,7 @@ export const HomeScreen = () => {
       </Box>
 
       {/* Exemplo de TouchableOpacityBox */}
-      <TouchableOpacityBox
+      {/* <TouchableOpacityBox
         backgroundColor="primaryLight"
         padding="spacing16"
         borderRadius="radius8"
@@ -53,7 +50,7 @@ export const HomeScreen = () => {
         <Text preset="caption" color="textSecondary" marginTop="spacing4">
           Toque para interagir
         </Text>
-      </TouchableOpacityBox>
+      </TouchableOpacityBox> */}
 
       {/* Exemplo de Grid usando Box */}
       <Box
@@ -78,7 +75,11 @@ export const HomeScreen = () => {
         ))}
       </Box>
 
-      <Button title="Sair" onPress={signOut} variant="primary" />
+      <Button
+        title="Sair"
+        onPress={() => console.log('HOME')}
+        variant="primary"
+      />
     </Box>
   );
 };
