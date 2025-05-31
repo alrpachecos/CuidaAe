@@ -6,7 +6,7 @@ import {Theme} from '../../theme/theme';
 interface ButtonProps {
   title: string;
   onPress: () => void;
-  variant?: 'primary' | 'secondary' | 'outline' | 'link';
+  variant?: 'primary' | 'secondary' | 'outline' | 'link' | 'text';
   loading?: boolean;
   disabled?: boolean;
   fullWidth?: boolean;
@@ -37,6 +37,12 @@ export const Button = ({
       borderWidth: 0,
       color: theme.colors.primary,
     },
+    variant === 'text' && {
+      backgroundColor: 'transparent',
+      borderWidth: 0,
+      padding: 0,
+      minHeight: 0,
+    },
     disabled && {
       backgroundColor: theme.colors.textDisabled,
       opacity: 0.5,
@@ -49,6 +55,11 @@ export const Button = ({
     variant === 'outline' && {color: theme.colors.primary},
     disabled && {color: theme.colors.primaryContrast},
     variant === 'link' && {color: theme.colors.primary},
+    variant === 'text' && {
+      color: theme.colors.primary,
+      fontSize: 16,
+      lineHeight: 24,
+    },
   ];
 
   return (

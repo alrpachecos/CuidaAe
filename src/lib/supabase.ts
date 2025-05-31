@@ -9,6 +9,9 @@ import Config from 'react-native-config';
 const supabaseUrl = Config.SUPABASE_URL;
 const supabaseAnonKey = Config.SUPABASE_ANON_KEY;
 
+console.log('Supabase URL:', supabaseUrl);
+console.log('Supabase ANON KEY:', supabaseAnonKey);
+
 // Auth client setup
 export const auth = new GoTrueClient({
   url: `${supabaseUrl}/auth/v1`,  // Auth endpoint
