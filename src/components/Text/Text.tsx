@@ -89,10 +89,6 @@ export const $fontSizes: Record<TextVariants, TextStyle> = {
     fontSize: 12,
     lineHeight: 16,
   },
-  // caption2: {
-  //   fontSize: 10,
-  //   lineHeight: 12,
-  // },
   button: {
     fontSize: 16,
     lineHeight: 24,

@@ -1,69 +1,72 @@
 import { create } from 'zustand';
-import { auth } from '../lib/supabase';
-import { Session, User } from '@supabase/gotrue-js';
+import { authService } from '../services/authService';
 
 interface AuthState {
-  user: User | null;
-  session: Session | null;
   isLoading: boolean;
   error: string | null;
+  signUp: (name: string, email: string, password: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
-  setUser: (user: User | null) => void;
-  setSession: (session: Session | null) => void;
-  setError: (error: string | null) => void;
+  resetPassword: (email: string) => Promise<void>;
+  updatePassword: (newPassword: string) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
-  session: null,
   isLoading: false,
   error: null,
 
-  signIn: async (email: string, password: string) => {
+  signUp: async (name, email, password) => {
     try {
       set({ isLoading: true, error: null });
-      const { data, error } = await auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) throw error;
-
-      set({
-        user: data.user,
-        session: data.session,
-        isLoading: false,
-      });
+      await authService.signUp({ name, email, password });
     } catch (error) {
-      console.log(error);
-      set({
-        error: error instanceof Error ? error.message : 'Erro ao fazer login',
-        isLoading: false,
-      });
+      set({ error: error instanceof Error ? error.message : 'Erro ao cadastrar' });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  signIn: async (email, password) => {
+    try {
+      set({ isLoading: true, error: null });
+      await authService.signIn({ email, password });
+    } catch (error) {
+      set({ error: error instanceof Error ? error.message : 'Erro ao fazer login' });
+    } finally {
+      set({ isLoading: false });
     }
   },
 
   signOut: async () => {
     try {
       set({ isLoading: true, error: null });
-      const { error } = await auth.signOut();
-      if (error) throw error;
-
-      set({
-        user: null,
-        session: null,
-        isLoading: false,
-      });
+      await authService.signOut();
     } catch (error) {
-      set({
-        error: error instanceof Error ? error.message : 'Erro ao fazer logout',
-        isLoading: false,
-      });
+      set({ error: error instanceof Error ? error.message : 'Erro ao sair' });
+    } finally {
+      set({ isLoading: false });
     }
   },
 
-  setUser: (user) => set({ user }),
-  setSession: (session) => set({ session }),
-  setError: (error) => set({ error }),
+  resetPassword: async (email) => {
+    try {
+      set({ isLoading: true, error: null });
+      await authService.resetPassword(email);
+    } catch (error) {
+      set({ error: error instanceof Error ? error.message : 'Erro ao resetar senha' });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  updatePassword: async (newPassword) => {
+    try {
+      set({ isLoading: true, error: null });
+      await authService.updatePassword(newPassword);
+    } catch (error) {
+      set({ error: error instanceof Error ? error.message : 'Erro ao atualizar senha' });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
 }));

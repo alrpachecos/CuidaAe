@@ -51,7 +51,8 @@ export const theme = createTheme({
     textDisabled: palette.grayLight,
 
     // Cores de fundo
-    background: palette.background,
+    background: palette.white,
+    backgroundContrast: palette.black,
     backgroundPaper: palette.backgroundLight,
     backgroundHighlight: palette.backgroundHighlight,
 
