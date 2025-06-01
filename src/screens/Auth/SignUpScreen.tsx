@@ -35,6 +35,7 @@ export const SignUpScreen = ({navigation}: Props) => {
 
   const onSubmit = async (data: FormSchemaSignUp) => {
     await signUp(data.name, data.email, data.password);
+    navigation.navigate('HomeScreen');
     reset();
   };
 

@@ -30,9 +30,7 @@ export const SignInScreen = ({navigation}: Props) => {
   const onSubmit = async (data: FormSchemaSignIn) => {
     console.log(data.email, data.password);
     await signIn(data.email, data.password);
-
     reset();
-    navigation.navigate('HomeScreen');
   };
 
   const navigateToForgotPasswordScreen = () => {

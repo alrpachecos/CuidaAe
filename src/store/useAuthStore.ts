@@ -1,7 +1,10 @@
 import { create } from 'zustand';
 import { authService } from '../services/authService';
+import { User, Session } from '@supabase/gotrue-js';
 
 interface AuthState {
+  user: User | null;
+  session: Session | null;
   isLoading: boolean;
   error: string | null;
   signUp: (name: string, email: string, password: string) => Promise<void>;
@@ -12,6 +15,8 @@ interface AuthState {
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
+  user: null,
+  session: null,
   isLoading: false,
   error: null,
 
@@ -29,7 +34,8 @@ export const useAuthStore = create<AuthState>((set) => ({
   signIn: async (email, password) => {
     try {
       set({ isLoading: true, error: null });
-      await authService.signIn({ email, password });
+      const { user, session } = await authService.signIn({ email, password });
+      set({ user, session });
     } catch (error) {
       set({ error: error instanceof Error ? error.message : 'Erro ao fazer login' });
     } finally {
