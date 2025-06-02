@@ -5,6 +5,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   View,
+  ImageSourcePropType,
 } from 'react-native';
 import {Box} from '../../components/Box/Box';
 import {Button} from '../../components/Button/Button';
@@ -53,7 +54,7 @@ export const SignUpScreen = ({navigation}: Props) => {
             justifyContent="center"
             alignItems="center">
             <Image
-              source={LogoImage}
+              source={LogoImage as ImageSourcePropType}
               style={{width: 275, height: 275}}
               resizeMode="cover"
             />
