@@ -1,13 +1,13 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { HomeScreen } from '../screens/Home/HomeScreen';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {BottomTabNavigator} from './BottomTabNavigator';
 
 const Stack = createNativeStackNavigator();
 
-export const AppNavigator = () => {
+export function AppNavigator() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} />
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="MainTabs" component={BottomTabNavigator} />
     </Stack.Navigator>
   );
-}; 
+}
