@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { authService } from '../services/authService';
 import { User, Session } from '@supabase/gotrue-js';
+import { auth } from '../lib/supabase';
 
 interface AuthState {
   user: User | null;
@@ -12,6 +13,7 @@ interface AuthState {
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
   updatePassword: (newPassword: string) => Promise<void>;
+  initialize: () => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -19,6 +21,20 @@ export const useAuthStore = create<AuthState>((set) => ({
   session: null,
   isLoading: false,
   error: null,
+
+  initialize: async () => {
+    try {
+      set({ isLoading: true });
+      const { data: { session } } = await auth.getSession();
+      if (session) {
+        set({ user: session.user, session });
+      }
+    } catch (error) {
+      console.error('Erro ao inicializar sessão:', error);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
 
   signUp: async (name, email, password) => {
     try {
@@ -47,6 +63,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     try {
       set({ isLoading: true, error: null });
       await authService.signOut();
+      set({ user: null, session: null });
     } catch (error) {
       set({ error: error instanceof Error ? error.message : 'Erro ao sair' });
     } finally {
@@ -76,3 +93,13 @@ export const useAuthStore = create<AuthState>((set) => ({
     }
   },
 }));
+
+// Configurar listener para mudanças na sessão
+auth.onAuthStateChange((event, session) => {
+  if (event === 'SIGNED_IN') {
+    useAuthStore.setState({ user: session?.user ?? null, session });
+  }
+  if (event === 'SIGNED_OUT') {
+    useAuthStore.setState({ user: null, session: null });
+  }
+});
