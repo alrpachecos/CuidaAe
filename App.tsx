@@ -1,5 +1,5 @@
 import 'react-native-url-polyfill/auto';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {ThemeProvider} from '@shopify/restyle';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
@@ -14,6 +14,12 @@ const Navigation = () => {
 };
 
 function App(): React.JSX.Element {
+  const {initialize} = useAuthStore();
+
+  useEffect(() => {
+    initialize();
+  }, [initialize]);
+
   return (
     <SafeAreaProvider>
       <ThemeProvider theme={theme}>
