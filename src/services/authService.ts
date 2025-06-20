@@ -1,60 +1,40 @@
-import {auth} from '../lib/supabase';
+import api from './apiService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { User } from '../types/AuthenticationTypes';
 
-export interface SignUpData {
-  name: string;
-  email: string;
-  password: string;
+const TOKEN_KEY = 'authToken';
+
+export async function registerApp(
+  name: string,
+  email: string,
+  password: string,
+  role: 'patient' | 'professional'
+) {
+  const { data } = await api.post<{ user: User; token: string }>('/auth/register', {
+    name,
+    email,
+    password,
+    role: role.toUpperCase(),
+  });
+  await AsyncStorage.setItem(TOKEN_KEY, data.token);
+  return data;
 }
 
-export interface SignInData {
-  email: string;
-  password: string;
+export async function loginApp(email: string, password: string) {
+  const { data } = await api.post<{ user: User; token: string }>('/auth/login', {
+    email,
+    password,
+  });
+  await AsyncStorage.setItem(TOKEN_KEY, data.token);
+  return data;
 }
 
-export const authService = {
-  async signUp({name, email, password}: SignUpData) {
-    const {data, error} = await auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          name,
-        },
-      },
-    });
+export async function logoutApp() {
+  await AsyncStorage.removeItem(TOKEN_KEY);
+}
 
-    if (error) throw error;
-    return data;
-  },
-
-  async signIn({email, password}: SignInData) {
-    const {data, error} = await auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) throw error;
-    return data;
-  },
-
-  async signOut() {
-    const {error} = await auth.signOut();
-    if (error) throw error;
-  },
-
-  async resetPassword(email: string) {
-    const {error} = await auth.resetPasswordForEmail(email, {
-      redirectTo: 'cuidaae://reset-password',
-    });
-
-    if (error) throw error;
-  },
-
-  async updatePassword(newPassword: string) {
-    const {error} = await auth.updateUser({
-      password: newPassword,
-    });
-
-    if (error) throw error;
-  },
-}; 
+export async function fetchMe() {
+  const { data } = await api.get<User>('/auth/me');
+  console.log('data', data);
+  return data;
+}

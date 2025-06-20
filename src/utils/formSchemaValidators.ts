@@ -23,6 +23,10 @@ export const FormSchemaSignUp = z.object({
         .string()
         .min(8, 'A senha deve ter pelo menos 8 caracteres')
         .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>/?`~-])[A-Za-z\d!@#$%^&*()_+[\]{};':"\\|,.<>/?`~-]{8,}$/, 'Senha inválida'),
+    role: z.enum(['patient', 'professional'], {
+        required_error: 'Selecione o tipo de usuário',
+        invalid_type_error: 'Selecione o tipo de usuário',
+    }),
 });
 
 export const FormSchemaForgotPassword = z.object({

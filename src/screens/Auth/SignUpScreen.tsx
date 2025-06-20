@@ -18,11 +18,12 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useAuthStore} from '../../store/useAuthStore';
 import {AuthStackParamList} from '../../navigation/AuthNavigator';
+import {FormSelect} from '../../components/Form/FormSelect';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'SignUpScreen'>;
 
 export const SignUpScreen = ({navigation}: Props) => {
-  const {signUp, isLoading, error} = useAuthStore();
+  const {register, isLoading, error} = useAuthStore();
 
   const {control, formState, handleSubmit, reset} = useForm<FormSchemaSignUp>({
     resolver: zodResolver(FormSchemaSignUp),
@@ -30,13 +31,13 @@ export const SignUpScreen = ({navigation}: Props) => {
       name: '',
       email: '',
       password: '',
+      role: 'patient',
     },
     mode: 'onChange',
   });
 
   const onSubmit = async (data: FormSchemaSignUp) => {
-    await signUp(data.name, data.email, data.password);
-    navigation.navigate('HomeScreen');
+    await register(data.name, data.email, data.password, data.role);
     reset();
   };
 
@@ -79,6 +80,18 @@ export const SignUpScreen = ({navigation}: Props) => {
             autoComplete="email"
           />
 
+          <FormSelect
+            control={control}
+            name="role"
+            placeholder="Selecione um tipo de usuário"
+            label="Tipo de usuário"
+            errorMessage={formState.errors.role?.message}
+            options={[
+              {label: 'Paciente', value: 'patient'},
+              {label: 'Profissional', value: 'professional'},
+            ]}
+          />
+
           <FormTextInput
             control={control}
             placeholder="Digite sua senha"
@@ -95,12 +108,15 @@ export const SignUpScreen = ({navigation}: Props) => {
             </Box>
           )}
 
-          <Button
-            title="Cadastrar"
-            onPress={handleSubmit(onSubmit)}
-            variant="primary"
-            loading={isLoading}
-          />
+          <Box marginTop="spacing24">
+            <Button
+              title="Cadastrar"
+              onPress={handleSubmit(onSubmit)}
+              variant="primary"
+              loading={isLoading}
+              disabled={!formState.isValid}
+            />
+          </Box>
 
           <Box marginTop="spacing32">
             <Button
