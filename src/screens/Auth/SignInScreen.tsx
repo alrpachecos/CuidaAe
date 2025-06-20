@@ -1,5 +1,11 @@
 import React from 'react';
-import {Image, View, TouchableWithoutFeedback, Keyboard} from 'react-native';
+import {
+  Image,
+  View,
+  TouchableWithoutFeedback,
+  Keyboard,
+  ImageSourcePropType,
+} from 'react-native';
 import {Box} from '../../components/Box/Box';
 import {Button} from '../../components/Button/Button';
 import {FormSchemaSignIn} from '../../utils/formSchemaValidators';
@@ -16,7 +22,7 @@ import {Text} from '../../components/Text/Text';
 type Props = NativeStackScreenProps<AuthStackParamList, 'SignInScreen'>;
 
 export const SignInScreen = ({navigation}: Props) => {
-  const {signIn, isLoading, error} = useAuthStore();
+  const {login, isLoading, error} = useAuthStore();
 
   const {control, formState, handleSubmit, reset} = useForm<FormSchemaSignIn>({
     resolver: zodResolver(FormSchemaSignIn),
@@ -29,7 +35,7 @@ export const SignInScreen = ({navigation}: Props) => {
 
   const onSubmit = async (data: FormSchemaSignIn) => {
     console.log(data.email, data.password);
-    await signIn(data.email, data.password);
+    await login(data.email, data.password);
     reset();
   };
 
@@ -51,7 +57,7 @@ export const SignInScreen = ({navigation}: Props) => {
             justifyContent="center"
             alignItems="center">
             <Image
-              source={LogoImage}
+              source={LogoImage as ImageSourcePropType}
               style={{width: 275, height: 275}}
               resizeMode="cover"
             />

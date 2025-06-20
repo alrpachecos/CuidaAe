@@ -2,36 +2,20 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useTheme} from '@shopify/restyle';
 import {Theme} from '../theme/theme';
-
-import {HomeScreen} from '../screens/Home/HomeScreen';
-import {AppointmentScreen} from '../screens/Appointment/AppointmentScreen';
-import {AppointmentHistoryScreen} from '../screens/AppointmentHistory/AppointmentHistoryScreen';
-import {ProfileScreen} from '../screens/Profile/ProfileScreen';
-
-import IconHome from '../assets/icons/icon-home.svg';
-import IconHomeActive from '../assets/icons/icon-home-active.svg';
-import IconCalendar from '../assets/icons/icon-calendar.svg';
-import IconCalendarActive from '../assets/icons/icon-calendar-active.svg';
-import IconList from '../assets/icons/icon-list.svg';
-import IconListActive from '../assets/icons/icon-list-active.svg';
-import IconProfile from '../assets/icons/icon-profile.svg';
-import IconProfileActive from '../assets/icons/icon-profile-active.svg';
+import {icons} from '../components/icons';
 
 const Tab = createBottomTabNavigator();
 
-const HomeIcon = ({focused}: {focused: boolean}) =>
-  focused ? <IconHomeActive /> : <IconHome />;
+interface BottomTabNavigatorProps {
+  screens: {
+    name: string;
+    component: React.ComponentType<any>;
+    label: string;
+    iconType: keyof typeof icons;
+  }[];
+}
 
-const CalendarIcon = ({focused}: {focused: boolean}) =>
-  focused ? <IconCalendarActive /> : <IconCalendar />;
-
-const ListIcon = ({focused}: {focused: boolean}) =>
-  focused ? <IconListActive /> : <IconList />;
-
-const ProfileIcon = ({focused}: {focused: boolean}) =>
-  focused ? <IconProfileActive /> : <IconProfile />;
-
-export function BottomTabNavigator() {
+export function BottomTabNavigator({screens}: BottomTabNavigatorProps) {
   const theme = useTheme<Theme>();
 
   return (
@@ -57,34 +41,26 @@ export function BottomTabNavigator() {
           fontSize: theme.textVariants.caption.fontSize,
         },
       }}>
-      <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          tabBarIcon: HomeIcon,
-        }}
-      />
-      <Tab.Screen
-        name="Agenda"
-        component={AppointmentScreen}
-        options={{
-          tabBarIcon: CalendarIcon,
-        }}
-      />
-      <Tab.Screen
-        name="Histórico"
-        component={AppointmentHistoryScreen}
-        options={{
-          tabBarIcon: ListIcon,
-        }}
-      />
-      <Tab.Screen
-        name="Perfil"
-        component={ProfileScreen}
-        options={{
-          tabBarIcon: ProfileIcon,
-        }}
-      />
+      {screens.map(screen => {
+        const Icon = ({focused}: {focused: boolean}) => {
+          const IconComponent = focused
+            ? icons[screen.iconType].active
+            : icons[screen.iconType].default;
+          return <IconComponent />;
+        };
+
+        return (
+          <Tab.Screen
+            key={screen.name}
+            name={screen.name}
+            component={screen.component}
+            options={{
+              tabBarLabel: screen.label,
+              tabBarIcon: Icon,
+            }}
+          />
+        );
+      })}
     </Tab.Navigator>
   );
 }

@@ -3,14 +3,14 @@ import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {ThemeProvider} from '@shopify/restyle';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {AppNavigator} from './src/navigation/AppNavigator';
 import {AuthNavigator} from './src/navigation/AuthNavigator';
+import {RoleBasedNavigator} from './src/navigation/RoleBasedNavigator';
 import {theme} from './src/theme/theme';
 import {useAuthStore} from './src/store/useAuthStore';
 
 const Navigation = () => {
   const {user} = useAuthStore();
-  return user ? <AppNavigator /> : <AuthNavigator />;
+  return user ? <RoleBasedNavigator user={user} /> : <AuthNavigator />;
 };
 
 function App(): React.JSX.Element {
