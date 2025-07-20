@@ -1,16 +1,17 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 import {
   Pressable,
   TextInput as RNTextInput,
   TextInputProps as RNTextInputProps,
   TextStyle,
 } from 'react-native';
-import {Box, BoxProps} from '../Box/Box';
-import {Text} from '../Text/Text';
-import {Theme} from '../../theme/theme';
-import {useTheme} from '@shopify/restyle';
-import {fontFamily, fontSize} from '../../constants/typography';
 
+import { Box, BoxProps } from '@components/Box/Box';
+import { Text } from '@components/Text/Text';
+import { useTheme } from '@shopify/restyle';
+import { Theme } from '@theme/theme';
+
+import { fontFamily, fontSize } from '../../constants/typography';
 export interface TextInputProps extends RNTextInputProps {
   label: string;
   errorMessage?: string;

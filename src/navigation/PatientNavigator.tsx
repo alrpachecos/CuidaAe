@@ -1,8 +1,10 @@
 import React from 'react';
-import {BottomTabNavigator} from './BottomTabNavigator';
-import {HomeScreen} from '../screens/Patient/HomeScreen';
-import {AppointmentsScreen} from '../screens/Patient/AppointmentsScreen';
-import {ProfileScreen} from '../screens/Patient/ProfileScreen';
+
+import { AppointmentsScreen } from '../screens/Patient/AppointmentsScreen';
+import { HomeScreen } from '../screens/Patient/HomeScreen';
+import { ProfileScreen } from '../screens/Patient/ProfileScreen';
+
+import { BottomTabNavigator } from './BottomTabNavigator';
 
 export const PatientNavigator = () => {
   const screens = [

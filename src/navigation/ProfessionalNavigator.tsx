@@ -1,8 +1,10 @@
 import React from 'react';
-import {BottomTabNavigator} from './BottomTabNavigator';
-import {HomeScreen} from '../screens/Professional/HomeScreen';
-import {ProfileScreen} from '../screens/Professional/ProfileScreen';
-import {AppointmentsScreen} from '../screens/Professional/AppointmentsScreen';
+
+import { AppointmentsScreen } from '../screens/Professional/AppointmentsScreen';
+import { HomeScreen } from '../screens/Professional/HomeScreen';
+import { ProfileScreen } from '../screens/Professional/ProfileScreen';
+
+import { BottomTabNavigator } from './BottomTabNavigator';
 
 export const ProfessionalNavigator = () => {
   const screens = [

@@ -1,20 +1,22 @@
 import 'react-native-url-polyfill/auto';
-import React, {useEffect} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {ThemeProvider} from '@shopify/restyle';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {AuthNavigator} from './src/navigation/AuthNavigator';
-import {RoleBasedNavigator} from './src/navigation/RoleBasedNavigator';
-import {theme} from './src/theme/theme';
-import {useAuthStore} from './src/store/useAuthStore';
+import React, { useEffect } from 'react';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { ThemeProvider } from '@shopify/restyle';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+import { AuthNavigator } from './src/navigation/AuthNavigator';
+import { RoleBasedNavigator } from './src/navigation/RoleBasedNavigator';
+import { useAuthStore } from './src/store/useAuthStore';
+import { theme } from './src/theme/theme';
 
 const Navigation = () => {
-  const {user} = useAuthStore();
+  const { user } = useAuthStore();
   return user ? <RoleBasedNavigator user={user} /> : <AuthNavigator />;
 };
 
 function App(): React.JSX.Element {
-  const {initialize} = useAuthStore();
+  const { initialize } = useAuthStore();
 
   useEffect(() => {
     initialize();

@@ -1,6 +1,7 @@
 import React from 'react';
-import {Box} from '../../components/Box/Box';
-import {Text} from '../../components/Text/Text';
+
+import { Box } from '../../components/Box/Box';
+import { Text } from '../../components/Text/Text';
 
 export const AppointmentsScreen = () => {
   return (

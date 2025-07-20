@@ -1,11 +1,13 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
-import {Box} from '../Box/Box';
-import {Text} from '../Text/Text';
-import {useTheme} from '@shopify/restyle';
-import {Theme} from '../../theme/theme';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { TouchableOpacity } from 'react-native';
+
+import { useTheme } from '@shopify/restyle';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 import IconArrowBack from '../../assets/icons/icon-arrow-back.svg';
+import { Theme } from '../../theme/theme';
+import { Box } from '../Box/Box';
+import { Text } from '../Text/Text';
 
 interface HeaderProps {
   title: string;
@@ -25,7 +27,7 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <SafeAreaView
       edges={['top']}
-      style={{backgroundColor: theme.colors.background}}>
+      style={{ backgroundColor: theme.colors.background }}>
       <Box
         backgroundColor="background"
         paddingHorizontal="spacing16"
@@ -40,7 +42,7 @@ export const Header: React.FC<HeaderProps> = ({
             <TouchableOpacity
               onPress={onBackPress}
               testID="header-back-button"
-              style={{marginRight: theme.spacing.spacing8}}>
+              style={{ marginRight: theme.spacing.spacing8 }}>
               <IconArrowBack width={24} height={24} />
             </TouchableOpacity>
           )}

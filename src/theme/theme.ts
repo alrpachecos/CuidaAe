@@ -1,5 +1,11 @@
-import {createTheme} from '@shopify/restyle';
-import {fontFamily, fontSize, lineHeight, fontWeight} from '../constants/typography';
+import { createTheme } from '@shopify/restyle';
+
+import {
+  fontFamily,
+  fontSize,
+  lineHeight,
+  fontWeight,
+} from '../constants/typography';
 
 export const palette = {
   // Cores principais
@@ -152,4 +158,3 @@ export const theme = createTheme({
 
 export type Theme = typeof theme;
 export type ThemeColors = keyof Theme['colors'];
-

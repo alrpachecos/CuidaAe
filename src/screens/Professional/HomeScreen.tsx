@@ -1,10 +1,11 @@
 import React from 'react';
-import {Box} from '../../components/Box/Box';
-import {Text} from '../../components/Text/Text';
-import {useAuthStore} from '../../store/useAuthStore';
+
+import { Box } from '../../components/Box/Box';
+import { Text } from '../../components/Text/Text';
+import { useAuthStore } from '../../store/useAuthStore';
 
 export const HomeScreen = () => {
-  const {user} = useAuthStore();
+  const { user } = useAuthStore();
 
   return (
     <Box flex={1} backgroundColor="background" padding="spacing16">

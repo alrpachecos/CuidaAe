@@ -1,8 +1,10 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {useTheme} from '@shopify/restyle';
-import {Theme} from '../theme/theme';
-import {icons} from '../components/icons';
+
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useTheme } from '@shopify/restyle';
+
+import { icons } from '../components/icons';
+import { Theme } from '../theme/theme';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +17,7 @@ interface BottomTabNavigatorProps {
   }[];
 }
 
-export function BottomTabNavigator({screens}: BottomTabNavigatorProps) {
+export function BottomTabNavigator({ screens }: BottomTabNavigatorProps) {
   const theme = useTheme<Theme>();
 
   return (
@@ -42,7 +44,7 @@ export function BottomTabNavigator({screens}: BottomTabNavigatorProps) {
         },
       }}>
       {screens.map(screen => {
-        const Icon = ({focused}: {focused: boolean}) => {
+        const Icon = ({ focused }: { focused: boolean }) => {
           const IconComponent = focused
             ? icons[screen.iconType].active
             : icons[screen.iconType].default;
