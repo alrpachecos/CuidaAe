@@ -54,12 +54,14 @@ cuidaae/
 ## 🚀 Como Rodar o Projeto
 
 1. Clone o repositório:
+
    ```bash
    git clone https://github.com/seu-usuario/cuidaae.git
    cd cuidaae
    ```
 
 2. Instale as dependências:
+
    ```bash
    yarn install
    ```

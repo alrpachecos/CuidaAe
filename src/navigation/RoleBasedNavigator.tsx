@@ -1,8 +1,11 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {User} from '../types/AuthenticationTypes';
-import {ProfessionalNavigator} from './ProfessionalNavigator';
-import {PatientNavigator} from './PatientNavigator';
+
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import { User } from '../sharedTypes/AuthenticationTypes';
+
+import { PatientNavigator } from './PatientNavigator';
+import { ProfessionalNavigator } from './ProfessionalNavigator';
 
 export type RootStackParamList = {
   ProfessionalNavigator: undefined;
@@ -19,7 +22,7 @@ export const RoleBasedNavigator: React.FC<RoleBasedNavigatorProps> = ({
   user,
 }) => {
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       {user.role === 'professional' ? (
         <Stack.Screen
           name="ProfessionalNavigator"

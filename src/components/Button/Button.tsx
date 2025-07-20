@@ -1,8 +1,8 @@
 import React from 'react';
-import {Text, StyleSheet, ActivityIndicator, Pressable} from 'react-native';
-import {useTheme} from '@shopify/restyle';
-import {Theme} from '../../theme/theme';
+import { Text, StyleSheet, ActivityIndicator, Pressable } from 'react-native';
 
+import { useTheme } from '@shopify/restyle';
+import { Theme } from '@theme/theme';
 interface ButtonProps {
   title: string;
   onPress: () => void;
@@ -24,9 +24,9 @@ export const Button = ({
 
   const buttonStyles = [
     styles.button,
-    {borderRadius: theme.borderRadii.radius8},
-    variant === 'primary' && {backgroundColor: theme.colors.primary},
-    variant === 'secondary' && {backgroundColor: theme.colors.secondary},
+    { borderRadius: theme.borderRadii.radius8 },
+    variant === 'primary' && { backgroundColor: theme.colors.primary },
+    variant === 'secondary' && { backgroundColor: theme.colors.secondary },
     variant === 'outline' && {
       backgroundColor: 'transparent',
       borderWidth: 1,
@@ -52,9 +52,9 @@ export const Button = ({
 
   const textStyles = [
     theme.textVariants.button,
-    variant === 'outline' && {color: theme.colors.primary},
-    disabled && {color: theme.colors.primaryContrast},
-    variant === 'link' && {color: theme.colors.primary},
+    variant === 'outline' && { color: theme.colors.primary },
+    disabled && { color: theme.colors.primaryContrast },
+    variant === 'link' && { color: theme.colors.primary },
     variant === 'text' && {
       color: theme.colors.primary,
       fontSize: 16,

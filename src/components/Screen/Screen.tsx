@@ -1,11 +1,17 @@
 import React from 'react';
-import {Box, PressableBox} from '../Box/Box';
-import {useAppSafeArea} from '../../hooks/useAppSafeArea';
-import {Text} from '../Text/Text';
-import {KeyboardAvoidingView, Platform} from 'react-native';
-import {ScrollViewContainer, ViewContainer} from './components/ScreenContainer';
-import {useNavigation} from '@react-navigation/native';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 
+import { Box } from '@components/Box/Box';
+import { Text } from '@components/Text/Text';
+import { useNavigation } from '@react-navigation/native';
+
+import { useAppSafeArea } from '../../hooks/useAppSafeArea';
+import { PressableBox } from '../Box/Box';
+
+import {
+  ScrollViewContainer,
+  ViewContainer,
+} from './components/ScreenContainer';
 interface ScreenProps {
   children: React.ReactNode;
   canGoBack?: boolean;
@@ -19,19 +25,19 @@ export const Screen = ({
   scrollable = false,
   centerContent = false,
 }: ScreenProps) => {
-  const {top, bottom} = useAppSafeArea();
+  const { top, bottom } = useAppSafeArea();
   const navigation = useNavigation();
 
   const Container = scrollable ? ScrollViewContainer : ViewContainer;
   return (
     <KeyboardAvoidingView
-      style={{flex: 1}}
+      style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <Container backgroundColor="background">
         <Box
           flex={1}
           paddingHorizontal="spacing24"
-          style={{paddingTop: top, paddingBottom: bottom}}
+          style={{ paddingTop: top, paddingBottom: bottom }}
           justifyContent={centerContent ? 'center' : 'flex-start'}>
           {canGoBack && (
             <PressableBox

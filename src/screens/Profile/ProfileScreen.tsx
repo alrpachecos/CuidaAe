@@ -1,6 +1,8 @@
 import React from 'react';
-import {createBox} from '@shopify/restyle';
-import {Theme} from '../../theme/theme';
+
+import { createBox } from '@shopify/restyle';
+
+import { Theme } from '../../theme/theme';
 
 const Box = createBox<Theme>();
 

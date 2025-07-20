@@ -6,32 +6,35 @@ import {
   Keyboard,
   ImageSourcePropType,
 } from 'react-native';
-import {Box} from '../../components/Box/Box';
-import {Button} from '../../components/Button/Button';
-import {FormSchemaSignIn} from '../../utils/formSchemaValidators';
-import LogoImage from '../../assets/images/logo-cuidaae.png';
-import {Screen} from '../../components/Screen/Screen';
-import {FormTextInput} from '../../components/Form/FormTextInput';
-import {useForm} from 'react-hook-form';
-import {zodResolver} from '@hookform/resolvers/zod';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {AuthStackParamList} from '../../navigation/AuthNavigator';
-import {useAuthStore} from '../../store/useAuthStore';
-import {Text} from '../../components/Text/Text';
+
+import LogoImage from '@assets/images/logo-cuidaae.png';
+import { Box } from '@components/Box/Box';
+import { Button } from '@components/Button/Button';
+import { FormTextInput } from '@components/Form/FormTextInput';
+import { Screen } from '@components/Screen/Screen';
+import { Text } from '@components/Text/Text';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { AuthStackParamList } from '@navigation/AuthNavigator';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useAuthStore } from '@store/useAuthStore';
+import { FormSchemaSignIn } from '@utils/formSchemaValidators';
+import { useForm } from 'react-hook-form';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'SignInScreen'>;
 
-export const SignInScreen = ({navigation}: Props) => {
-  const {login, isLoading, error} = useAuthStore();
+export const SignInScreen = ({ navigation }: Props) => {
+  const { login, isLoading, error } = useAuthStore();
 
-  const {control, formState, handleSubmit, reset} = useForm<FormSchemaSignIn>({
-    resolver: zodResolver(FormSchemaSignIn),
-    defaultValues: {
-      email: '',
-      password: '',
+  const { control, formState, handleSubmit, reset } = useForm<FormSchemaSignIn>(
+    {
+      resolver: zodResolver(FormSchemaSignIn),
+      defaultValues: {
+        email: '',
+        password: '',
+      },
+      mode: 'onChange',
     },
-    mode: 'onChange',
-  });
+  );
 
   const onSubmit = async (data: FormSchemaSignIn) => {
     console.log(data.email, data.password);
@@ -49,7 +52,7 @@ export const SignInScreen = ({navigation}: Props) => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <Screen centerContent>
           <Box
             width={350}
@@ -58,7 +61,7 @@ export const SignInScreen = ({navigation}: Props) => {
             alignItems="center">
             <Image
               source={LogoImage as ImageSourcePropType}
-              style={{width: 275, height: 275}}
+              style={{ width: 275, height: 275 }}
               resizeMode="cover"
             />
           </Box>
@@ -86,7 +89,7 @@ export const SignInScreen = ({navigation}: Props) => {
 
           {error && (
             <Box marginBottom="spacing16">
-              <Text style={{color: 'red', textAlign: 'center'}}>{error}</Text>
+              <Text style={{ color: 'red', textAlign: 'center' }}>{error}</Text>
             </Box>
           )}
 

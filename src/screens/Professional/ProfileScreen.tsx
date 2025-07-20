@@ -1,11 +1,12 @@
 import React from 'react';
-import {Box} from '../../components/Box/Box';
-import {Text} from '../../components/Text/Text';
-import {Button} from '../../components/Button/Button';
-import {useAuthStore} from '../../store/useAuthStore';
+
+import { Box } from '../../components/Box/Box';
+import { Button } from '../../components/Button/Button';
+import { Text } from '../../components/Text/Text';
+import { useAuthStore } from '../../store/useAuthStore';
 
 export const ProfileScreen = () => {
-  const {user, logout} = useAuthStore();
+  const { user, logout } = useAuthStore();
 
   return (
     <Box flex={1} backgroundColor="background" padding="spacing16">

@@ -1,10 +1,12 @@
 import React from 'react';
-import {Controller, Control, FieldValues, Path} from 'react-hook-form';
+
+import { Box } from '@components/Box/Box';
+import { Text } from '@components/Text/Text';
+import { useTheme } from '@shopify/restyle';
+import { Theme } from '@theme/theme';
+import { Controller, Control, FieldValues, Path } from 'react-hook-form';
 import RNPickerSelect from 'react-native-picker-select';
-import {useTheme} from '@shopify/restyle';
-import {Theme} from '../../theme/theme';
-import {Box} from '../Box/Box';
-import {Text} from '../Text/Text';
+
 import IconArrowDown from '../../assets/icons/icon-arrow-down.svg';
 
 type Option = {
@@ -42,7 +44,7 @@ export function FormSelect<T extends FieldValues>({
       <Controller
         control={control}
         name={name}
-        render={({field: {onChange, value}}) => (
+        render={({ field: { onChange, value } }) => (
           <RNPickerSelect
             onValueChange={onChange}
             value={value}

@@ -1,16 +1,17 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Button} from '../../components/Button/Button';
-import {Text} from '../../components/Text/Text';
-import {Box} from '../../components/Box/Box';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {theme} from '../../theme/theme';
+
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { Box } from '../../components/Box/Box';
+import { Button } from '../../components/Button/Button';
+import { Text } from '../../components/Text/Text';
+import { theme } from '../../theme/theme';
 
 export const HomeScreen = () => {
   return (
     <SafeAreaView
       edges={['top']}
-      style={{flex: 1, backgroundColor: theme.colors.background}}>
+      style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <Box flex={1} backgroundColor="background" padding="spacing16">
         <Box marginBottom="spacing32">
           <Text preset="heading1" color="primary">
@@ -29,7 +30,7 @@ export const HomeScreen = () => {
           borderRadius="radius8"
           marginBottom="spacing24"
           shadowColor="black"
-          shadowOffset={{width: 0, height: 2}}
+          shadowOffset={{ width: 0, height: 2 }}
           shadowOpacity={0.1}
           shadowRadius={4}
           elevation={2}>

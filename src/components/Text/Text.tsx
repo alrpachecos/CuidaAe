@@ -1,8 +1,10 @@
 import React from 'react';
-import {TextStyle} from 'react-native';
-import {createText} from '@shopify/restyle';
-import {Theme} from '../../theme/theme';
-import {fontFamily} from '../../constants/typography';
+import { TextStyle } from 'react-native';
+
+import { createText } from '@shopify/restyle';
+import { Theme } from '@theme/theme';
+
+import { fontFamily } from '../../constants/typography';
 
 const SRText = createText<Theme>();
 
@@ -39,7 +41,7 @@ export const Text = ({
     <SRText
       color={color}
       variant={preset}
-      style={[{fontFamily: fontFamilyStyle}, style]}
+      style={[{ fontFamily: fontFamilyStyle }, style]}
       {...srTextProps}>
       {children}
     </SRText>
