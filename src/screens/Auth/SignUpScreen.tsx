@@ -7,36 +7,40 @@ import {
   View,
   ImageSourcePropType,
 } from 'react-native';
-import {Box} from '../../components/Box/Box';
-import {Button} from '../../components/Button/Button';
-import {FormSchemaSignUp} from '../../utils/formSchemaValidators';
-import LogoImage from '../../assets/images/logo-cuidaae.png';
-import {Screen} from '../../components/Screen/Screen';
-import {FormTextInput} from '../../components/Form/FormTextInput';
-import {useForm} from 'react-hook-form';
-import {zodResolver} from '@hookform/resolvers/zod';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {useAuthStore} from '../../store/useAuthStore';
-import {AuthStackParamList} from '../../navigation/AuthNavigator';
+
+import LogoImage from '@assets/images/logo-cuidaae.png';
+import { Box } from '@components/Box/Box';
+import { Button } from '@components/Button/Button';
+import { FormSelect } from '@components/Form/FormSelect';
+import { FormTextInput } from '@components/Form/FormTextInput';
+import { Screen } from '@components/Screen/Screen';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { AuthStackParamList } from '@navigation/AuthNavigator';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useAuthStore } from '@store/useAuthStore';
+import { FormSchemaSignUp } from '@utils/formSchemaValidators';
+import { useForm } from 'react-hook-form';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'SignUpScreen'>;
 
-export const SignUpScreen = ({navigation}: Props) => {
-  const {signUp, isLoading, error} = useAuthStore();
+export const SignUpScreen = ({ navigation }: Props) => {
+  const { register, isLoading, error } = useAuthStore();
 
-  const {control, formState, handleSubmit, reset} = useForm<FormSchemaSignUp>({
-    resolver: zodResolver(FormSchemaSignUp),
-    defaultValues: {
-      name: '',
-      email: '',
-      password: '',
+  const { control, formState, handleSubmit, reset } = useForm<FormSchemaSignUp>(
+    {
+      resolver: zodResolver(FormSchemaSignUp),
+      defaultValues: {
+        name: '',
+        email: '',
+        password: '',
+        role: 'patient',
+      },
+      mode: 'onChange',
     },
-    mode: 'onChange',
-  });
+  );
 
   const onSubmit = async (data: FormSchemaSignUp) => {
-    await signUp(data.name, data.email, data.password);
-    navigation.navigate('HomeScreen');
+    await register(data.name, data.email, data.password, data.role);
     reset();
   };
 
@@ -46,7 +50,7 @@ export const SignUpScreen = ({navigation}: Props) => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <Screen centerContent>
           <Box
             width={350}
@@ -55,7 +59,7 @@ export const SignUpScreen = ({navigation}: Props) => {
             alignItems="center">
             <Image
               source={LogoImage as ImageSourcePropType}
-              style={{width: 275, height: 275}}
+              style={{ width: 275, height: 275 }}
               resizeMode="cover"
             />
           </Box>
@@ -79,6 +83,18 @@ export const SignUpScreen = ({navigation}: Props) => {
             autoComplete="email"
           />
 
+          <FormSelect
+            control={control}
+            name="role"
+            placeholder="Selecione um tipo de usuário"
+            label="Tipo de usuário"
+            errorMessage={formState.errors.role?.message}
+            options={[
+              { label: 'Paciente', value: 'patient' },
+              { label: 'Profissional', value: 'professional' },
+            ]}
+          />
+
           <FormTextInput
             control={control}
             placeholder="Digite sua senha"
@@ -91,16 +107,19 @@ export const SignUpScreen = ({navigation}: Props) => {
 
           {error && (
             <Box marginBottom="spacing16">
-              <Text style={{color: 'red', textAlign: 'center'}}>{error}</Text>
+              <Text style={{ color: 'red', textAlign: 'center' }}>{error}</Text>
             </Box>
           )}
 
-          <Button
-            title="Cadastrar"
-            onPress={handleSubmit(onSubmit)}
-            variant="primary"
-            loading={isLoading}
-          />
+          <Box marginTop="spacing24">
+            <Button
+              title="Cadastrar"
+              onPress={handleSubmit(onSubmit)}
+              variant="primary"
+              loading={isLoading}
+              disabled={!formState.isValid}
+            />
+          </Box>
 
           <Box marginTop="spacing32">
             <Button
